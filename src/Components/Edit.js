@@ -8,16 +8,19 @@ export function Edit(props){
 
     },[props])
     const [user,setUser]=useState(props.currentUser);
-    const handleChange=e=>{
-        const {name,value}=e.target;
+    const handleChange=event=>{
+        const {name,value}=event.target;
         setUser({...user,[name]: value});
     }
-    const handleSubmit=e=>{
-        e.preventDefault();
-        if(user.name&&user.username)props.updateUser(user);
-    }
+    
     return(
-        <form >
+        <form 
+        onSubmit={event=>{
+            event.preventDefault()
+
+            props.updateUser(user.id,user)
+        }}
+        >
         
         <div className="max-w-md w-full mx-auto shadow rounded-lg p-7 space-y-6">
 					<div className="flex flex-col">
@@ -50,9 +53,9 @@ export function Edit(props){
 							placeholder="Enter Your Username"
 						/>
 					</div>
-                    <button className="w-28 bg-indigo-600 text-white rounded-md p-2  hover:bg-blue-700" type="submit" onClick={handleSubmit} >Edit User
+                    <button className="w-28 bg-indigo-600 text-white rounded-md p-2  hover:bg-blue-700" type="submit">Edit User
                      </button>
-                     <button className="w-28 bg-indigo-600 text-white rounded-md p-2  hover:bg-blue-700 ml-2" type="submit" onClick={()=>props.setEditing(false)}>Cancel
+                     <button className="w-28 bg-indigo-600 text-white rounded-md p-2  hover:bg-blue-700 ml-2" type="submit" onClick={()=>props.setEdit(false)}>Cancel
                      </button>
                     </div>
                     </form>

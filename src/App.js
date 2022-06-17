@@ -8,35 +8,36 @@ import { useState } from 'react';
 
 function App() {
 
-  
-  const [users,setUsers]=useState(ArrayData);
-  const addUser=(user)=>{
-    user.id=users.length+1;
+  const initialUser={id:null,name:'',username:''}
+  const [users,setUsers]= useState(ArrayData)
+  const [currentUser,setCurrentUser]= useState(initialUser)
+  const [edit,setEdit]= useState(false)
+
+
+
+  const addUser=user=>{
+    user.id=users.length+1
     setUsers([...users,user])
-  };
-  const deleteUser=(id)=>{
-    setUsers(users.filter((user)=>user.id !==id));
-  };
-  const [edit,setEdit]=useState(false);
-  const initialUser={id:null,name:"",username:""};
-  const [currentUser,setCurrentUser]=useState(initialUser)
-  const editUser=(id,user)=>{
-    setEdit(true);
-    setCurrentUser(user);
-  };
-  const updateUser=(newUser)=>{
-    setUsers(
-      users.map((user)=>(user.id===currentUser.id? newUser:user))
-    );
-    setCurrentUser(initialUser);
-    setEdit(false);
-  };
+  }
+  const deleteUser=id=>{
+    setEdit(false)
+    setUsers(users.filter(user=>user.id !==id))
+  }
+  const updateUser=(id,updatedUser)=>{
+    setEdit(false)
+    setUsers(users.map(user=>(user.id===id? updatedUser:user)))
+  }
+  const editRow=(user)=>{
+    setEdit(true)
+    setCurrentUser({id:user.id,name:user.name,username:user.username})
+  }
   return (
     <div className="flex gap-4 ml-5">
+      {edit?(
       <div className="mt-4">
-      <Edit currentUser={currentUser} setEdit={setEdit} updateUser={updateUser}/></div>
-      <div className="mt-4"><AddDataForm addUser={addUser}/></div>
-      <div className="flex justify-center mt-4"><DataTable users={users} deleteUser={deleteUser} editUser={editUser}/></div>
+      <Edit edit={edit} setEdit={setEdit} currentUser={currentUser} updateUser={updateUser}/></div>):(
+      <div className="mt-4"><AddDataForm addUser={addUser}/></div>)}
+      <div className="flex justify-center mt-4"><DataTable users={users} editRow={editRow} deleteUser={deleteUser}/></div>
       
     </div>
   );

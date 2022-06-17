@@ -20,14 +20,14 @@ export function DataTable(props){
                                 <td className="p-5">{id}</td>
                                 <td className="p-5">{name}</td>
                                 <td className="p-5">{username}</td>
-                                <td ><button className=" p-5 hover:bg-blue-500 rounded-lg" onClick={()=>props.deleteUser(id)}>Delete</button>
-                                <button className="p-5 hover:bg-blue-500 rounded-lg" onClick={()=>props.editUser(id)}>Edit</button></td>
+                                <td ><button className=" p-5 hover:bg-blue-500 rounded-lg" onClick={()=>props.deleteUser(user.id)}>Delete</button>
+                                <button className="p-5 hover:bg-blue-500 rounded-lg" onClick={()=>props.editRow(user)}>Edit</button></td>
                             </tr>
                         )
                     }
               )
                 ):(
-                    <tr className="p-5"><td colSpan={4}> No users found</td></tr>
+                    <tr className="p-5"><td className="col-span-4"> No users found</td></tr>
                 )
                  } 
                 

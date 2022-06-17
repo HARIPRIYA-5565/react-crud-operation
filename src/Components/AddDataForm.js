@@ -4,15 +4,15 @@ import { useState } from "react";
 export function AddDataForm(props){
     const initialUser={id:null,name:"",username:""};
     const [user, setUser] =useState(initialUser);
-    const handleChange=e=>{
-        const {name,value}=e.target;
+    const handleChange=event=>{
+        const {name,value}=event.target;
         setUser({...user,[name]:value});
     
     }
-    const handleSubmit=e=>{
-        e.preventDefault();
+    const handleSubmit=event=>{
+        event.preventDefault();
         if(user.name && user.username){
-            handleChange(e,props.addUser(user));
+            handleChange(event,props.addUser(user));
         }
     }
     return(
